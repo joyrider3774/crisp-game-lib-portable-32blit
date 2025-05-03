@@ -52,7 +52,9 @@ The Game "Image" inside the blit file was initially by created by, Sai from funk
 of the library
 
 ---
+
 ORIGINAL README
+
 ---
 
 Minimal C-lang library for creating classic arcade-like mini-games running on devices and browsers. Re-implemented version of [crisp-game-lib](https://github.com/abagames/crisp-game-lib) for smaller devices. You can play [sample games in your browser](https://abagames.github.io/crisp-game-lib-portable/build/).
