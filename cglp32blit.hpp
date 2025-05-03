@@ -1,0 +1,7 @@
+#ifndef CGLPSDL1_H
+#define CGLPSDL1_h
+
+#define DEFAULT_WINDOW_WIDTH 320
+#define DEFAULT_WINDOW_HEIGHT 240
+
+#endif

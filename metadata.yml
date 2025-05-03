@@ -1,0 +1,10 @@
+title: Crisp Game Library
+description: A Collection of mostly one button games from abagames 
+author: Willems Davy
+splash:
+  file: assets/image.png
+icon:
+  file: assets/icon.png
+version: v1.0.0
+category: game
+url: https://github.com/joyrider3774/crisp-game-lib-portable-32blit
