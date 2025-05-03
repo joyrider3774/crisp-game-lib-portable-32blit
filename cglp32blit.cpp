@@ -288,7 +288,7 @@ void printDebugCpuRamFpsLoad(uint32_t start_frame, uint32_t end_frame, bool show
             return;
 
  #if defined(TARGET_32BLIT_HW) || defined(PICO_BUILD)
-        Rect tmpClip = screen.clip;
+        tmpClip = screen.clip;
         screen.clip.x = 0;
         screen.clip.y = 0;
         screen.clip.w = screen.bounds.w;
