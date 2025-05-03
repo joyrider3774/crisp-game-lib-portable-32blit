@@ -51,8 +51,8 @@ static SoundTone soundTones[SOUND_TONE_COUNT];
 static int soundToneIndex = 0;
 static float soundTime = 0;
 
-static uint32_t prevtime = 0;
 static uint32_t starttime = 0;
+
 #if defined(PICO_BUILD)
 static bool lowRes = true;
 #else
@@ -337,13 +337,9 @@ void init()
 }
 
 void render(uint32_t time) 
-{      
-    //if (now_us() - prevtime < 20000)
-    //    return;
+{
 
     updateFromSoundTask();
-
-    prevtime = now_us();
 
     bool mouseUsed = getGame(currentGameIndex).usesMouse;
     setButtonState(!mouseUsed && (buttons.state & Button::DPAD_LEFT), 
@@ -427,7 +423,7 @@ void render(uint32_t time)
     }
 
     printDebugCpuRamFpsLoad(starttime, now_us());
-    starttime = now_us();    
+    starttime = now_us();
 }
 
 
