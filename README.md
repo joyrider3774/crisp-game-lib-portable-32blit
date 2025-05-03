@@ -1,4 +1,58 @@
-# crisp-game-lib-portable
+# Crisp Game Lib Portable 32Blit (SDK)
+
+<img src="./docs/32blit.png" width="45%"> <img src="./docs/picosystem.png" width="45%">
+
+This is the [Crisp Game Library Portable](https://www.github.com/abagames/crisp-game-lib-portable) made by [abagames](https://www.github.com/abagames), 
+ported to [32blit](https://32blit.com/) SDK so it can run on 32blit, picosystem, picovision, ... It is based on my SDL Port containing the extra games.
+
+## Game Features
+- Extra additional games along the original / default games
+- Expanded Menu system to allow headings and more than 16 games listed.
+- Mouse simulation for mouse games
+- Saves Hiscores per game
+- Switch Between Lores and Hires mode 
+
+## Instructions
+You can Select a game from the game list and launch it with the A Button. 
+Upon start of game it will show a small textual info about how to control the game but may not be easy readable in lowres mode.
+When you want to play another game and return to the games list press Y
+When you want to switch between lowres / hires mode, for example if a game has slowdowns press X to switch the the mode and restart the current game.
+
+## Lores / Hires Mode
+Not all the games will run fullspeed, especially on the picosystem for this reason the pico system will by default run the games in low res mode but you can change this by pressing 
+X Button once in a game so that the game will restart in the other mode. The mode is remembered when running other games from the games list but you'll have to renable your choice after a restart. 
+I also don't know if the 32blit would be capable of running all the games fullspeed as i don't own a 32blit.
+
+Notable games that are taxing are:
+- R Wheel
+- B Blast
+- BS Fish (when the fish swaps to little fishes)
+- B Cannon (when there are lots of small balls)
+- D Fight (when there are lots of enemies of the screen)
+
+There may be more so you'll have to test and see what plays best, at any time during a game you can switch modes.
+
+## Controls
+
+| Button | Action                                                         |
+|--------|----------------------------------------------------------------|
+| DPAD   | Move up/down in games list, Move mouse purple dot mouse cursor |
+| A      | Main Action, can be hold + release or push                     |
+| Y      | Back To Games List                                             |
+| B      | Move One Game Down in Games List otherwise same as A           |
+| X      | Switch between hires / lores mode                              |
+
+## Credits
+
+[Crisp Game Library Portable](https://www.github.com/abagames/crisp-game-lib-portable) is made by [abagames](https://www.github.com/abagames), it contained 16 original games, 
+i ported extra games from the original [Javascript version](https://github.com/abagames/crisp-game-lib) of the library by using claude.ai and manual editing and game testing for the
+originally for t he [SDL Port](https://github.com/joyrider3774/crisp-game-lib-portable-sdl) i did and they are included in this version as well
+
+The Game "Image" inside the blit file was initially by created by, Sai from funkey discord, for the [funkey version](https://github.com/joyrider3774/crisp-game-lib-portable-funkey) of the library
+
+---
+ORIGINAL README
+---
 
 Minimal C-lang library for creating classic arcade-like mini-games running on devices and browsers. Re-implemented version of [crisp-game-lib](https://github.com/abagames/crisp-game-lib) for smaller devices. You can play [sample games in your browser](https://abagames.github.io/crisp-game-lib-portable/build/).
 
