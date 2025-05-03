@@ -6,7 +6,7 @@
 #if defined(TARGET_32BLIT_HW) || defined(PICO_BUILD)
 #include <malloc.h>
 #endif
-#include <stdlib.h>
+#include <stdlib.h>nin
 #include <float.h>
 #include <32blit.hpp>
 #include <string.h>
@@ -326,9 +326,7 @@ void render(uint32_t time)
 
     prevtime = now_us();
     
-
-    int tmpX, tmpY;
-    
+   
     bool mouseUsed = getGame(currentGameIndex).usesMouse;
     setButtonState(!mouseUsed && (buttons.state & Button::DPAD_LEFT), 
         !mouseUsed && (buttons.state & Button::DPAD_RIGHT), 
