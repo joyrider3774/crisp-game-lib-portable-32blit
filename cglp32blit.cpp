@@ -338,8 +338,8 @@ void init()
 
 void render(uint32_t time) 
 {      
-    if (now_us() - prevtime < 20000)
-        return;
+    //if (now_us() - prevtime < 20000)
+    //    return;
 
     updateFromSoundTask();
 
