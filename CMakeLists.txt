@@ -75,7 +75,7 @@ set(PROJECT_SOURCE cglp32blit.cpp
 include_directories(PRIVATE lib)
 
 # ... and any other files you want in the release here
-set(PROJECT_DISTRIBS LICENSE README.md)
+set(PROJECT_DISTRIBS LICENSE.txt README.md)
 
 # Build configuration; approach this with caution!
 if(MSVC)
