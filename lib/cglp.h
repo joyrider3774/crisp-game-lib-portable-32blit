@@ -16,7 +16,7 @@
 #include "machineDependent.h"
 #include "vector.h"
 
-#define MAX_GAME_COUNT 46
+#define MAX_GAME_COUNT 47
 
 #define FPS 50
 
