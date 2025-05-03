@@ -6,7 +6,7 @@
 #if defined(TARGET_32BLIT_HW) || defined(PICO_BUILD)
 #include <malloc.h>
 #endif
-#include <stdlib.h>nin
+#include <stdlib.h>
 #include <float.h>
 #include <32blit.hpp>
 #include <string.h>
