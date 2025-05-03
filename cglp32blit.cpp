@@ -36,7 +36,7 @@ static unsigned char clearColorB = 0;
 static int offsetX = 0;
 static int offsetY = 0;
 static float wscale = 1.0f;
-static bool debugMode = false;
+static int debugMode = 0;
 static float mouseX, mouseY;
 static int channel = 0;
 static int debounce = 0;
@@ -262,16 +262,37 @@ void md_consoleLog(char* msg)
 }
 
 
-void printDebugCpuRamFpsLoad(uint32_t start_frame, uint32_t end_frame)
+void printDebugCpuRamFpsLoad(uint32_t start_frame, uint32_t end_frame, bool showinfo, bool fpsonly)
 {
-    if(debugMode)
+    if(showinfo)
     {
         Rect tmpClip = screen.clip;
         screen.clip.x = 0;
         screen.clip.y = 0;
         screen.clip.w = screen.bounds.w;
-        screen.clip.h = screen.bounds.h;        
+        screen.clip.h = screen.bounds.h;
+
+        uint32_t us = end_frame - start_frame;
+        if (us == 0)
+            us = 1;
+        long int fps = 1000000.0 / us;
+        char buf2[100];
+        snprintf(buf2, sizeof(buf2), "FPS:%ld", fps);
+        screen.pen = Pen(255,255,255);
+        screen.rectangle(Rect(0, screen.bounds.h - minimal_font.char_h - 1,  strlen(buf2) * minimal_font.char_w + 2, 10));
+        screen.pen = Pen(0,0,0);
+        screen.text(buf2, minimal_font, {1, screen.bounds.h - minimal_font.char_h}, false, TextAlign::top_left);
+        screen.clip = tmpClip;
+
+        if (fpsonly)
+            return;
+
  #if defined(TARGET_32BLIT_HW) || defined(PICO_BUILD)
+        Rect tmpClip = screen.clip;
+        screen.clip.x = 0;
+        screen.clip.y = 0;
+        screen.clip.w = screen.bounds.w;
+        screen.clip.h = screen.bounds.h;
 
         // memory stats
 #ifdef TARGET_32BLIT_HW
@@ -313,18 +334,9 @@ void printDebugCpuRamFpsLoad(uint32_t start_frame, uint32_t end_frame)
         snprintf(buf, sizeof(buf), "Mem: %i + %i / %i", static_used, heap_used, total_ram);
         screen.text(buf, minimal_font, {pos.x, pos.y + h, w, h}, true, TextAlign::center_center);
 
-#endif
-        uint32_t us = end_frame - start_frame;
-        if (us == 0)
-            us = 1;   
-        long int fps = 1000000.0 / us;
-        char buf2[100];
-        snprintf(buf2, sizeof(buf2), "FPS: %ld", fps);
-        screen.pen = Pen(255,255,255);
-        screen.rectangle(Rect(1, screen.bounds.h - 10,  12 * 6 + 2, 10));
-        screen.pen = Pen(0,0,0);
-        screen.text(buf2, minimal_font, {1, screen.bounds.h - 9}, true, TextAlign::top_left);
         screen.clip = tmpClip;
+
+#endif
     }    
 }
 
@@ -389,7 +401,9 @@ void render(uint32_t time)
             (buttons.state & Button::A) &&
             (buttons.state & Button::B))
         {
-            debugMode = !debugMode;
+            debugMode++;
+            if(debugMode == 3)
+                debugMode = 0;
             restartGame(currentGameIndex);
             debounce = 25;
         }
@@ -423,7 +437,7 @@ void render(uint32_t time)
         debounce = 25;
     }
 
-    printDebugCpuRamFpsLoad(starttime, now_us());
+    printDebugCpuRamFpsLoad(starttime, now_us(), debugMode > 0, debugMode == 1);
     starttime = now_us();
 }
 
