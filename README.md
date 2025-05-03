@@ -45,10 +45,11 @@ There may be more so you'll have to test and see what plays best, at any time du
 ## Credits
 
 [Crisp Game Library Portable](https://www.github.com/abagames/crisp-game-lib-portable) is made by [abagames](https://www.github.com/abagames), it contained 16 original games, 
-i ported extra games from the original [Javascript version](https://github.com/abagames/crisp-game-lib) of the library by using claude.ai and manual editing and game testing for the
-originally for t he [SDL Port](https://github.com/joyrider3774/crisp-game-lib-portable-sdl) i did and they are included in this version as well
+i ported extra games from the original [Javascript version](https://github.com/abagames/crisp-game-lib) of the library by using claude.ai and manual editing and game testing for 
+originally the [SDL Port](https://github.com/joyrider3774/crisp-game-lib-portable-sdl), these are included in this port as well
 
-The Game "Image" inside the blit file was initially by created by, Sai from funkey discord, for the [funkey version](https://github.com/joyrider3774/crisp-game-lib-portable-funkey) of the library
+The Game "Image" inside the blit file was initially by created by, Sai from funkey discord, for the [funkey version](https://github.com/joyrider3774/crisp-game-lib-portable-funkey) 
+of the library
 
 ---
 ORIGINAL README
