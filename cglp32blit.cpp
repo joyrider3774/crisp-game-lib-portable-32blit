@@ -75,7 +75,8 @@ void ResetGame(Game *game)
 {
     if (strlen(game->title) > 0)
     {
-        md_clearScreen(clearColorR, clearColorG, clearColorB);
+        unsigned char cc = game->options.isDarkColor ? 0x10 : 0xe0;
+        md_clearScreen(cc, cc, cc);
         if(lowRes)
             set_screen_mode(lores);
         else
