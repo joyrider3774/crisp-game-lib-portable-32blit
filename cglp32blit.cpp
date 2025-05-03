@@ -17,7 +17,7 @@
 
 using namespace blit;
 
-#define TONEDIV 1
+#define TONEDIV 2
 
 #define TONE_PER_NOTE (32 / TONEDIV)
 #define SOUND_TONE_COUNT (64 / TONEDIV)
@@ -36,9 +36,10 @@ static unsigned char clearColorB = 0;
 static int offsetX = 0;
 static int offsetY = 0;
 static float wscale = 1.0f;
-static bool debugMode = true;
+static bool debugMode = false;
 static float mouseX, mouseY;
 static int channel = 0;
+static int debounce = 0;
 
 typedef struct {
     float freq;
@@ -52,6 +53,11 @@ static float soundTime = 0;
 
 static uint32_t prevtime = 0;
 static uint32_t starttime = 0;
+#if defined(PICO_BUILD)
+static bool lowRes = true;
+#else
+static bool lowRes = false;
+#endif
 
 extern SaveData saveData;
 
@@ -63,6 +69,18 @@ static void loadHighScores()
 static void saveHighScores()
 {
     write_save(saveData);
+}
+
+void ResetGame(Game *game)
+{
+    if (strlen(game->title) > 0)
+    {
+        md_clearScreen(clearColorR, clearColorG, clearColorB);
+        if(lowRes)
+            set_screen_mode(lores);
+        else
+            set_screen_mode(hires);
+    }
 }
 
 static void initSoundTones() 
@@ -313,6 +331,7 @@ void init()
 {
     set_screen_mode(hires);
     onSaveData = saveHighScores;
+    onResetGame = ResetGame;
     initGame();
     loadHighScores();
 }
@@ -325,8 +344,7 @@ void render(uint32_t time)
     updateFromSoundTask();
 
     prevtime = now_us();
-    
-   
+
     bool mouseUsed = getGame(currentGameIndex).usesMouse;
     setButtonState(!mouseUsed && (buttons.state & Button::DPAD_LEFT), 
         !mouseUsed && (buttons.state & Button::DPAD_RIGHT), 
@@ -365,9 +383,49 @@ void render(uint32_t time)
         screen.rectangle(dstVert);
     }
 
+    if(debounce > 0)
+        debounce--;
+
     if(buttons.state & Button::Y)
-        goToMenu();     
+    {
+        if((debounce == 0) && (buttons.state & Button::X) && 
+            (buttons.state & Button::A) &&
+            (buttons.state & Button::B))
+        {
+            debugMode = !debugMode;
+            restartGame(currentGameIndex);
+            debounce = 25;
+        }
+        else
+        {
+            if(!isInMenu && 
+                !((buttons.state & Button::X) || 
+                (buttons.state & Button::A) ||
+                (buttons.state & Button::B)))
+            {
+                //show menu always in hires!
+                set_screen_mode(hires);
+                goToMenu();
+            }
+        }        
+    }
     
+    if((buttons.state & Button::X) && 
+        !isInMenu && (debounce == 0) &&
+        !((buttons.state & Button::Y) || 
+        (buttons.state & Button::A) ||
+        (buttons.state & Button::B)))
+    {
+        lowRes = !lowRes;
+        md_clearScreen(clearColorR, clearColorG, clearColorB);
+        if(lowRes)
+            set_screen_mode(lores);
+        else
+            set_screen_mode(hires);
+        restartGame(currentGameIndex);
+        debounce = 25;
+    }
+
     printDebugCpuRamFpsLoad(starttime, now_us());
     starttime = now_us();    
 }

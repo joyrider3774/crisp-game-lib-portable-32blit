@@ -1054,11 +1054,11 @@ static void initGameOver() {
 }
 
 static void updateGameOver() {
-  if (gameOverTicks == 20) {
+  //if (gameOverTicks == 20) {
     saveCurrentColorAndCharacterOptions();
     drawGameOver();
     loadCurrentColorAndCharacterOptions();
-  }
+ // }
   if (gameOverTicks > 20 && currentInput.isJustPressed) {
     initInGame();
   } else if (hasTitle && gameOverTicks > 120) {
